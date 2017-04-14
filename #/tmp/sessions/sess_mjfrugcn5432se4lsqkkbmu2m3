@@ -1,1 +1,0 @@
-CURRENT_USER|O:8:"stdClass":3:{s:2:"id";s:1:"1";s:8:"username";s:5:"fahmi";s:8:"password";s:40:"8cb2237d0679ca88db6464eac60da96345513964";}FINANCE_TRANSACTION_MANAGER|a:3:{s:4:"date";s:5:"today";s:10:"categoryId";i:-1;s:9:"accountId";i:1;}
