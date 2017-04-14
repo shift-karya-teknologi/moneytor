@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+  <?= render('head') ?>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Laporan</span>
+          <div class="mdl-layout-spacer"></div>
+        </div>
+      </header>
+      <?= render('drawer') ?>
+      <?php $grandTotal = 0; ?>
+      <main class="mdl-layout__content">
+        <div class="mdlx-data-list">
+          <div class="mdlx-data-list__item"><a href="./monthly-by-category">Rekapitulasi Laporan Keuangan Bulanan</a></div>
+        </div>
+      </main>
+    </div>
+    <?= render('foot') ?>
+  </body>
+</html>

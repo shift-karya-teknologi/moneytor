@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+  <?= render('head') ?>
+  <style>
+    #trx-cat-list h4{font-size:15px;margin-top:0;margin-bottom:0;font-weight:bold;}
+    #trx-cat-list table {
+      margin-top: 0;
+    }
+    #trx-cat-list tr, #trx-cat-list td {
+      height: auto;
+      padding: 4px 8px;
+    }
+  </style>
+  </head>
+  <body id="trx-cat-list">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Kategori</span>
+          <div class="mdl-layout-spacer"></div>
+            <a href="./editor" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+              <i class="material-icons">add</i>
+            </a>
+        </div>
+      </header>
+      <?= render('drawer') ?>
+      <main class="mdl-layout__content">
+        <div class="mdl-grid">
+          <h4 class="mdl-cell mdl-cell-12-col">Pemasukan</h4>
+          <table class="mdl-data-table mdl-cell mdl-cell--12-col">
+            <?php foreach ($incomes as $item): ?>
+              <tr>
+                <td>
+                  <a href="./editor?id=<?= $item->id ?>"><?= e($item->name) ?></a>
+                </td>
+              </tr>
+            <?php endforeach ?>
+          </table>
+          </div>
+        <div class="mdl-grid">
+          <h4 class="mdl-cell mdl-cell-12-col">Pengeluaran</h4>
+          <table class="mdl-data-table mdl-cell mdl-cell--12-col">
+            <?php foreach ($expenses as $item): ?>
+              <tr>
+                <td>
+                  <a href="./editor?id=<?= $item->id ?>"><?= e($item->name) ?></a>
+                </td>
+              </tr>
+            <?php endforeach ?>
+          </table>
+          </div>
+        </div>
+      </main>
+    </div>
+    <?= render('foot') ?>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<div class="mdl-layout__drawer">
+  <header class="mdl-color--blue-grey mdl-color-text--white">
+    <span class="mdl-layout-title">
+      <a class="mdl-color-text--white" href="<?= BASE_URL ?>/">Moneytor</a>
+    </span>
+    <div class="my-account-name">
+      <span class="mdl-color-text--white"><?= $_SESSION['CURRENT_USER']->username ?></span>
+      <span class="mdl-color-text--white" style="float:right;font-weight:bold;">
+          <?= format_money(g('db')->query(
+            'select ifnull(sum(balance), 0)'
+            . ' from accounts')->fetchColumn()) ?>
+      </span>
+    </div>
+  </header>
+  <nav class="mdl-navigation">
+    <a class="mdl-navigation__link<?= str_starts_with($_SERVER['PATH_INFO'], '/report/') ? ' active' : '' ?>"
+      href="<?= BASE_URL ?>/report/"><i class="material-icons">show_chart</i>Laporan</a>
+    <a class="mdl-navigation__link<?= str_starts_with($_SERVER['PATH_INFO'], '/transaction/') ? ' active' : '' ?>"
+      href="<?= BASE_URL ?>/transaction/"><i class="material-icons">attach_money</i>Transaksi</a>
+    <a class="mdl-navigation__link<?= str_starts_with($_SERVER['PATH_INFO'], '/transaction-category/') ? ' active' : '' ?>"
+      href="<?= BASE_URL ?>/transaction-category/"><i class="material-icons">grid_on</i>Kategori</a>
+    <a class="mdl-navigation__link<?= str_starts_with($_SERVER['PATH_INFO'], '/account/') ? ' active' : '' ?>"
+      href="<?= BASE_URL ?>/account/"><i class="material-icons">account_balance_wallet</i>Akun</a>
+    <hr>
+    <a class="mdl-navigation__link" href="<?= LOGOUT_URL ?>"><i class="material-icons">exit_to_app</i>Keluar</a>
+  </nav>
+</div>

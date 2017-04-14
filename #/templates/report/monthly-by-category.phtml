@@ -1,0 +1,97 @@
+<?php
+$types = [
+  1 => 'Pemasukan',
+  2 => 'Pengeluaran',
+];
+
+?>
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+  <?= render('head') ?>
+    <style>
+      th.r, td.r{text-align:right;}
+      table{border-collapse:collapse;width:100%;border:none;}
+      th{text-align:left;font-weight:bold;}
+      td, th{padding:0;}
+      h3{margin:0 0 10px;font-size:16px;font-weight:bold;line-height:normal;}
+      .total td, .total th {border-top: 1px solid #aaa; }
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdlx-layout__no-drawer">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <a href="./" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">arrow_back</i>
+          </a>
+          <span class="mdl-layout-title">Laporan Bulanan</span>
+          <div class="mdl-layout-spacer"></div>
+        </div>
+      </header>
+      <main class="mdl-layout__content">
+        <form class="mdl-grid" style="margin-bottom:0;padding-bottom:0;">
+          <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label mdl-cell mdl-cell--2-col <?=
+              !empty($errors['accountId']) ? 'is-invalid' : '' ?>">
+            <select class="mdl-selectfield__select" id="accountId" name="accountId" onchange="this.form.submit()">
+              <?php foreach ($accounts as $account): ?>
+                <option value="<?= $account->id ?>" <?= $account->id == $accountId ? 'selected' : '' ?>><?= e($account->name) ?></option>
+              <?php endforeach ?>
+            </select>
+            <label class="mdl-selectfield__label" for="type">Akun</label>
+            <?php if (!empty($errors['accountId'])): ?>
+              <span class="form-error"><?= $errors['accountId'] ?></span>
+            <?php endif ?>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--2-col <?=
+            !empty($errors['month']) ? 'is-invalid' : '' ?>">
+            <input class="mdl-textfield__input" type="month" value="<?= $month ?>" id="month" name="month" onchange="this.form.submit()">
+            <label class="mdl-textfield__label" for="month">Nama Akun / Rekening</label>
+            <?php if (!empty($errors['month'])): ?>
+              <span class="form-error"><?= $errors['month'] ?></span>
+            <?php endif ?>
+          </div>
+        </form>
+        <div class="mdl-grid" style="margin-top:0;padding-top:0;">
+          <div class="mdl-cell mdl-cell--4-col" style="margin-top:0;padding-top:0;">
+            <table>
+              <?php $grandTotal = 0; ?>
+              <?php foreach ($items as $type => $categories): ?>
+                <tbody>
+                  <?php $total = 0; ?>
+                  <tr>
+                    <th colspan="3"><?= e($types[$type]) ?></th>
+                  </tr>
+                  <?php foreach ($categories as $categoryName => $subTotal): ?>
+                    <?php $grandTotal += $subTotal; $total += $subTotal; ?>
+                    <tr>
+                      <td><?= e($categoryName) ?></td>
+                      <td style="width:30px;" class="r">Rp.</td>
+                      <td style="width:90px;" class="r"><?= format_number($subTotal) ?></td>              
+                    </tr>
+                  <?php endforeach ?>
+                  <tr class="total">
+                    <th>Total</th>
+                    <th class="r">Rp.</th>
+                    <th class="r"><?= format_number($total) ?></th>
+                  </tr>
+                  <tr>
+                    <th colspan="3">&nbsp;</th>
+                  </tr>
+                </tbody>
+              <?php endforeach ?>              
+              <tfoot>
+                <tr class="total">
+                  <th>Grand Total</th>
+                  <th class="r">Rp.</th>
+                  <th class="r"><?= format_number($grandTotal) ?></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+    <?= render('foot') ?>
+  </body>
+</html>
